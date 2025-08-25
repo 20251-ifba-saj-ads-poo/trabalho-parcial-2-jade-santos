@@ -46,10 +46,16 @@ public class MasterController {
 
     }
 
-    @FXML
-    void showUsuarios(ActionEvent event) {
+     @FXML
+    void showListaProfessor(ActionEvent event) {
         limparBotoes(event.getSource());
-        masterPane.setCenter(new Pane());
+        showFXMLFile("ListaProfessor.fxml");
+    }
+
+    @FXML
+    void showListaAluno(ActionEvent event) {
+        limparBotoes(event.getSource());
+        showFXMLFile("ListaAluno.fxml");
     }
 
     private void limparBotoes(Object source) {
@@ -74,9 +80,33 @@ public class MasterController {
     }
 
     @FXML
+    void showAula(ActionEvent event) {
+        limparBotoes(event.getSource());
+        showFXMLFile("CadAula.fxml");
+    }
+
+    @FXML
+    void showAlunos(ActionEvent event) {
+        limparBotoes(event.getSource());
+        showFXMLFile("CadAluno.fxml");
+    }
+
+    @FXML
+    void showProfessor(ActionEvent event) {
+        limparBotoes(event.getSource());
+        showFXMLFile("CadProfessor.fxml");
+    }
+
+    @FXML
     void showLivros(ActionEvent event) {
         limparBotoes(event.getSource());
-        showFXMLFile("CadLivro.fxml");
+        showFXMLFile("CadLivros.fxml");
+    }
+
+    @FXML
+    void showUsuarios(ActionEvent event) {
+        limparBotoes(event.getSource());
+        showFXMLFile("CadUsuarios.fxml");
     }
 
     private void showFXMLFile(String resourceName) {
