@@ -94,7 +94,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showListaAluno" prefHeight="35.0" styleClass="btn-menu" stylesheets="@assets/style.css" text="Listar Alunos" textFill="WHITE">
+            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showListaAlunosPorModalidade" prefHeight="35.0" styleClass="btn-menu" stylesheets="@assets/style.css" text="Listar Alunos por Aula" textFill="WHITE">
                <padding>
                   <Insets bottom="5.0" left="10.0" />
                </padding>
@@ -109,7 +109,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showListaProfessor" prefHeight="35.0" styleClass="btn-menu" stylesheets="@assets/style.css" text="Listar Professores" textFill="WHITE">
+            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showListaProfessoresPorAula" prefHeight="35.0" styleClass="btn-menu" stylesheets="@assets/style.css" text="Listar Professores por Aula" textFill="WHITE">
                <padding>
                   <Insets bottom="5.0" left="10.0" />
                </padding>
@@ -124,7 +124,8 @@
                   </ImageView>
                </graphic>
             </Button>
-         </children></VBox>
+         </children>
+      </VBox>
    </left>
    <center>
       <ImageView fx:id="showHome" fitHeight="399.0" fitWidth="374.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
