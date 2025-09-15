@@ -1,39 +1,56 @@
 package br.edu.ifba.saj.fwads.controller;
 
-import br.edu.ifba.saj.fwads.Biblioteca;
+import br.edu.ifba.saj.fwads.model.SistemaAcademia;
 import br.edu.ifba.saj.fwads.model.Aula;
-/*import javafx.event.ActionEvent;*/
+import br.edu.ifba.saj.fwads.model.Professor;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 public class CadAulaController {
 
-    @FXML
-    private TextField txHoraAula;
+    @FXML private TextField txNomeAula;
+    @FXML private TextField txHoraAula;
+    @FXML private TextField txProfessorAula; // Campo para o nome do professor
 
     @FXML
-    private TextField txNomeAula;
+    public void salvarAula() {
+        String nomeAula = txNomeAula.getText();
+        String horaAula = txHoraAula.getText();
+        String nomeProfessor = txProfessorAula.getText();
 
-    @FXML
-    private TextField txProfessorAula;
+        // Encontrar o professor pelo nome. Em um sistema real, seria melhor usar um ID
+        Professor professorResponsavel = SistemaAcademia.getInstance().getProfessores()
+            .stream()
+            .filter(p -> p.getNome().equalsIgnoreCase(nomeProfessor))
+            .findFirst()
+            .orElse(null);
 
-    @FXML
-    private void salvarAula() {
-        Aula novaAula = new Aula(txNomeAula.getText(),
-                    txHoraAula.getText(), 
-                    txProfessorAula.getText());
-        new Alert(AlertType.INFORMATION, 
-        "Cadastrando Aula:"+novaAula.getNome()).showAndWait();
-        Biblioteca.listaAulas.add(novaAula);
-        limparTela();
+        if (professorResponsavel != null) {
+            Aula novaAula = new Aula(nomeAula, horaAula, professorResponsavel);
+            SistemaAcademia.getInstance().getAulas().add(novaAula);
+            professorResponsavel.adicionarAula(novaAula);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cadastro de Aula");
+            alert.setHeaderText(null);
+            alert.setContentText("Aula cadastrada com sucesso!");
+            alert.showAndWait();
+
+            limparTela();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText("Professor não encontrado. Por favor, cadastre o professor primeiro.");
+            alert.showAndWait();
+        }
     }
+
     @FXML
-    private void limparTela() {
-        txHoraAula.setText("");
+    public void limparTela() {
         txNomeAula.setText("");
+        txHoraAula.setText("");
         txProfessorAula.setText("");
     }
-
 }
