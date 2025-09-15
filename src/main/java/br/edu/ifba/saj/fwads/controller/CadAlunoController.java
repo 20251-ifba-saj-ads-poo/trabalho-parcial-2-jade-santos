@@ -1,39 +1,39 @@
 package br.edu.ifba.saj.fwads.controller;
 
-import br.edu.ifba.saj.fwads.Biblioteca;
+import br.edu.ifba.saj.fwads.model.SistemaAcademia;
 import br.edu.ifba.saj.fwads.model.Aluno;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 public class CadAlunoController {
-
+    
+    @FXML private TextField txNome;
+    @FXML private TextField txEmail;
+    @FXML private TextField txCPF;
+    
     @FXML
-    private TextField txCPF;
-
-    @FXML
-    private TextField txEmail;
-
-    @FXML
-    private TextField txNome;
-
-    @FXML
-    private void salvarAluno() {
-        Aluno novoAluno = new Aluno(txCPF.getText(),
-                    txEmail.getText(),
-                    txNome.getText());
-        new Alert(AlertType.INFORMATION, 
-        "Cadastrando Aluno:"+novoAluno.getCPF()).showAndWait();
-        Biblioteca.listaAlunos.add(novoAluno);
+    public void salvarAluno() {
+        String nome = txNome.getText();
+        String email = txEmail.getText();
+        String cpf = txCPF.getText();
+        
+        Aluno novoAluno = new Aluno(nome, cpf, email);
+        SistemaAcademia.getInstance().getAlunos().add(novoAluno);
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Cadastro de Aluno");
+        alert.setHeaderText(null);
+        alert.setContentText("Aluno cadastrado com sucesso!");
+        alert.showAndWait();
+        
         limparTela();
     }
+    
     @FXML
-    private void limparTela() {
-        txCPF.setText("");
-        txEmail.setText("");
+    public void limparTela() {
         txNome.setText("");
+        txEmail.setText("");
+        txCPF.setText("");
     }
-
-
 }
