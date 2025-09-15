@@ -1,14 +1,17 @@
 package br.edu.ifba.saj.fwads.controller;
 
+import java.io.IOException;
+
 import br.edu.ifba.saj.fwads.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -27,95 +30,71 @@ public class MasterController {
     private Label userEmail;
 
     @FXML
+    private ImageView showHome;
+
+    @FXML
     private Circle userPicture;
 
     @FXML
     void logOff(MouseEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION, "Deseja realmente sair??", ButtonType.YES, ButtonType.NO);
         alert.showAndWait()
-                .filter(response -> response == ButtonType.YES)
-                .ifPresent(response -> {
-                    App.setRoot("controller/Login.fxml");
-                });
+            .filter(response -> response == ButtonType.YES)
+            .ifPresent(response -> {
+                App.setRoot("controller/Login.fxml");
+            });
+    }
+
+    private void showFXMLFile(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ifba/saj/fwads/view/" + fxmlPath));
+            Node content = loader.load();
+            masterPane.setCenter(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the error appropriately, maybe show an alert
+        }
     }
 
     @FXML
-    void showHome(ActionEvent event) {
+    public void showHome(ActionEvent event) {
         limparBotoes(event.getSource());
         masterPane.setCenter(new Pane());
-
-    }
-
-     @FXML
-    void showListaProfessor(ActionEvent event) {
-        limparBotoes(event.getSource());
-        showFXMLFile("ListaProfessor.fxml");
-    }
-
-    @FXML
-    void showListaAluno(ActionEvent event) {
-        limparBotoes(event.getSource());
-        showFXMLFile("ListaAluno.fxml");
     }
 
     private void limparBotoes(Object source) {
-        menu.getChildren().forEach((node) -> {
-            if (node instanceof Button btn) {
-                btn.getStyleClass().clear();
-                btn.getStyleClass().add("btn-menu");
-            }
-        }
-
-        );
-        if (source instanceof Button btn) {
-            btn.getStyleClass().clear();
-            btn.getStyleClass().add("btn-menu-selected");
-        }
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'limparBotoes'");
     }
 
     @FXML
-    void showAutores(ActionEvent event) {
-        limparBotoes(event.getSource());
-        showFXMLFile("CadAutor.fxml");
-    }
-
-    @FXML
-    void showAula(ActionEvent event) {
-        limparBotoes(event.getSource());
-        showFXMLFile("CadAula.fxml");
-    }
-
-    @FXML
-    void showAlunos(ActionEvent event) {
-        limparBotoes(event.getSource());
-        showFXMLFile("CadAluno.fxml");
-    }
-
-    @FXML
-    void showProfessor(ActionEvent event) {
+    public void showProfessor(ActionEvent event) {
         limparBotoes(event.getSource());
         showFXMLFile("CadProfessor.fxml");
     }
 
     @FXML
-    void showLivros(ActionEvent event) {
+    public void showAlunos(ActionEvent event) {
         limparBotoes(event.getSource());
-        showFXMLFile("CadLivros.fxml");
+        showFXMLFile("CadAluno.fxml");
     }
 
     @FXML
-    void showUsuarios(ActionEvent event) {
+    public void showAula(ActionEvent event) {
         limparBotoes(event.getSource());
-        showFXMLFile("CadUsuarios.fxml");
+        showFXMLFile("CadAula.fxml");
     }
 
-    private void showFXMLFile(String resourceName) {
-        try {            
-            Pane fxmlCarregado = FXMLLoader.load(getClass().getResource(resourceName));
-            masterPane.setCenter(fxmlCarregado);
-        } catch (Exception e) {
-            new Alert(AlertType.ERROR, "Erro ao carregar o arquivo " + resourceName).showAndWait();
-            e.printStackTrace();
-        }
+    
+    @FXML
+    public void showListaAlunosPorModalidade(ActionEvent event) {
+        limparBotoes(event.getSource());
+        showFXMLFile("ListaAlunosPorModalidade.fxml");
+    }
+    
+    @FXML
+    public void showListaProfessoresPorAula(ActionEvent event) {
+        limparBotoes(event.getSource());
+        showFXMLFile("ListaProfessoresPorAula.fxml");
     }
 }
