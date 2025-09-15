@@ -1,61 +1,39 @@
 package br.edu.ifba.saj.fwads.controller;
 
-import br.edu.ifba.saj.fwads.Biblioteca;
+import br.edu.ifba.saj.fwads.model.SistemaAcademia;
 import br.edu.ifba.saj.fwads.model.Professor;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-
 
 public class CadProfessorController {
-    @FXML
-    private Label lbISBN;
+
+    @FXML private TextField txNome;
+    @FXML private TextField txEmail;
+    @FXML private TextField txCPF;
 
     @FXML
-    private Label lbSubTitulo;
+    public void salvarProfessor() {
+        String nome = txNome.getText();
+        String email = txEmail.getText();
+        String cpf = txCPF.getText();
 
-    @FXML
-    private Label lbTitulo;
+        Professor novoProfessor = new Professor(nome, email, cpf);
+        SistemaAcademia.getInstance().getProfessores().add(novoProfessor);
 
-    @FXML
-    private TextField txNome;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Cadastro de Professor");
+        alert.setHeaderText(null);
+        alert.setContentText("Professor cadastrado com sucesso!");
+        alert.showAndWait();
 
-    @FXML
-    void limparTela(ActionEvent event) {
-        txNome.setText("");
-        txEmail.setText("");
-        txCPF.setText("");
-    }
-
-    @FXML
-    void salvarLivro(ActionEvent event) {
-
-    }
-
-    @FXML
-    private TextField txEmail;
-
-    @FXML
-    private TextField txCPF;
-
-    @FXML
-    private void salvarProfessor() {
-        Professor novoProfessor = new Professor(txNome.getText(),
-                    txEmail.getText(),
-                    txCPF.getText());
-        new Alert(AlertType.INFORMATION, 
-        "Cadastrando Professor:"+novoProfessor.getNome()).showAndWait();
-        Biblioteca.listaProfessores.add(novoProfessor);
         limparTela();
     }
-    @FXML
-    private void limparTela() {
-        txCPF.setText("");
-        txEmail.setText("");
-        txNome.setText("");
-    }
 
+    @FXML
+    public void limparTela() {
+        txNome.setText("");
+        txEmail.setText("");
+        txCPF.setText("");
+    }
 }
